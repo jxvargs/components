@@ -23,13 +23,13 @@ def main():
     print(os.getcwd())
     files = os.listdir(src_path)
 
-    move_and_rename(files)
+    move_and_rename(files,target_name, dir_name)
     
 def move_and_rename(files, dir_name, target_path):
     prefix = 1
     for file in files:
         if file.endswith(('.HEIC','.PNG','.DNG','.JPG'), 7):
-            shutil.move(file, target_path+dir_name + '/' +str(prefix) + '-' + dir_name + '.DNG')
+            shutil.move(file, target_path + dir_name + '/' +str(prefix) + '-' + dir_name + '.DNG')
             print(file)
             prefix += 1
 
