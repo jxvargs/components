@@ -10,20 +10,25 @@ import shutil
 import os
 
 def main():
-    src_path = '/Users/ekbalam/Downloads/'
-    target_path = '/Users/ekbalam/Documents/Returns/' 
-    
     clear_screen()
-
-    print("\n\tLet's move and rename pix * Returns * raw materials files...\n")
-    dir_name = dir_file_name()
-    make_dir(dir_name)
+    print("\n\n\n\tLet's move and rename pix * Returns * to raw materials files...\n\n")
+    src_path, target_path, dir_name = working_dirs()
+    
+    make_dir(target_path,dir_name)
 
     os.chdir(src_path)
     print(os.getcwd())
     files = os.listdir(src_path)
 
-    move_and_rename(files,target_path, dir_name)
+    move_and_rename(files, target_path, dir_name)
+
+def working_dirs():
+    home_path = os.path.expanduser('~')
+    src_path =  home_path+ '/Downloads'
+    target_path = home_path + '/Documents/Returns/'
+    dir_name = dir_file_name()
+
+    return src_path, target_path, dir_name
     
 def move_and_rename(files, target_path, dir_name):
     prefix = 1
@@ -33,8 +38,8 @@ def move_and_rename(files, target_path, dir_name):
             print(file)
             prefix += 1
 
-def make_dir(dir_name) -> None:
-    os.mkdir(f'/Users/ekbalam/Documents/Returns/{dir_name}')
+def make_dir(target_path, dir_name) -> None:
+    os.mkdir(target_path + dir_name)
 
 
 def dir_file_name() -> str:
