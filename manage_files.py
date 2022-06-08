@@ -10,7 +10,7 @@ import shutil
 import os
 
 def main():
-    src_path = '/Users/ekbalam/Downloads'
+    src_path = '/Users/ekbalam/Downloads/'
     target_path = '/Users/ekbalam/Documents/Returns/' 
     
     clear_screen()
@@ -23,9 +23,9 @@ def main():
     print(os.getcwd())
     files = os.listdir(src_path)
 
-    move_and_rename(files,target_name, dir_name)
+    move_and_rename(files,target_path, dir_name)
     
-def move_and_rename(files, dir_name, target_path):
+def move_and_rename(files, target_path, dir_name):
     prefix = 1
     for file in files:
         if file.endswith(('.HEIC','.PNG','.DNG','.JPG'), 7):
