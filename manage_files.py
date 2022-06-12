@@ -27,10 +27,13 @@ def main() -> None:
     move_and_rename(files, target_path, dir_name)
 
 # This function sets up working directories.
+# Note: Alternate options:
+#      1- home_path = os.path.expanduser('~')
+#      2- home_path = os.envorion.get('HOME') 
 def working_dirs() -> str:
-    home_path = os.path.expanduser('~')
-    src_path =  home_path + '/Downloads'
-    target_path = home_path + '/Documents/Returns/'
+    home_path = os.environ.get('HOME')
+    src_path =  os.path.join(home_path, 'Downloads')
+    target_path = os.path.join(home_path, 'Documents/Returns')
     dir_name = dir_file_name()
 
     return src_path, target_path, dir_name
@@ -39,19 +42,20 @@ def working_dirs() -> str:
 # to new destination.    
 def move_and_rename(files, target_path, dir_name):
     ext = '.DNG' # Setting file extension
-    slash = '/' # delimiter
     delimiter = '-' # delimiter
     prefix = 1 # as starter counter. 
     for file in files:
         if file.endswith(('.HEIC','.PNG','.DNG','.JPG'), 7):
-            shutil.move(file, target_path + dir_name + slash +
-                        str(prefix) + delimiter + dir_name + ext)
+            shutil.move(file, os.path.join(target_path, dir_name, str(prefix) +  
+                   delimiter + dir_name + ext))
             print(file)
             prefix += 1
 
 # Creating destination directory.
 def make_dir(target_path, dir_name) -> None:
-    os.mkdir(target_path + dir_name)
+    #wo_dir = os.path.join(target_path, dir_name)
+    os.mkdir(target_path + '/' + dir_name)
+    #os.mkdir(wo_dir)
 
 # Promting user for directory name and return the name.
 def dir_file_name() -> str:
