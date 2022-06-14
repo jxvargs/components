@@ -42,10 +42,11 @@ def working_dirs() -> str:
 # to new destination.    
 def move_and_rename(files, target_path, dir_name):
     ext = '.DNG' # Setting file extension
+    extensions = ('.HEIC','.PNG','.DNG','.JPG')
     delimiter = '-' # delimiter
     prefix = 1 # as starter counter. 
     for file in files:
-        if file.endswith(('.HEIC','.PNG','.DNG','.JPG'), 7):
+        if file.endswith(extensions, 7):
             shutil.move(file, os.path.join(target_path, dir_name, str(prefix) +  
                    delimiter + dir_name + ext))
             print(file)
@@ -53,9 +54,7 @@ def move_and_rename(files, target_path, dir_name):
 
 # Creating destination directory.
 def make_dir(target_path, dir_name) -> None:
-    #wo_dir = os.path.join(target_path, dir_name)
-    os.mkdir(target_path + '/' + dir_name)
-    #os.mkdir(wo_dir)
+    os.mkdir(os.path.join(target_path, dir_name))
 
 # Promting user for directory name and return the name.
 def dir_file_name() -> str:
