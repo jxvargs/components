@@ -67,7 +67,7 @@ def dir_file_name() -> str:
         elif file_name == blank:
             print("\n\tWrong entry -*-BLANKS-*- are not allowed...\n")
             continue
-        else:
+        elif file_name:
             return file_name
     # Exit with status value os.EX_OK
     # Utilizing os._exit passing parameter (os.EX_OK)
