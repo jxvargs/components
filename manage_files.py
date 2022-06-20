@@ -42,7 +42,7 @@ def working_dirs() -> str:
 # to new destination.    
 def move_and_rename(files, target_path, dir_name):
     ext = '.DNG' # Setting file extension
-    extensions = ('.HEIC','.PNG','.DNG','.JPG')
+    extensions = ('.HEIC','.PNG','.DNG','.JPG', '.jpg', 'png')
     delimiter = '-' # delimiter
     prefix = 1 # as starter counter. 
     for file in files:
@@ -58,8 +58,21 @@ def make_dir(target_path, dir_name) -> None:
 
 # Promting user for directory name and return the name.
 def dir_file_name() -> str:
-    file_name = input("Enter directory / file name: ")
-    return file_name
+    active = True
+    blank = ''
+    while active:
+        file_name = input("Enter WO # or 'q' to QUIT: ")
+        if file_name.lower() == 'q':
+            active = False
+        elif file_name == blank:
+            print("\n\tWrong entry -*-BLANKS-*- are not allowed...\n")
+            continue
+        else:
+            return file_name
+    # Exit with status value os.EX_OK
+    # Utilizing os._exit passing parameter (os.EX_OK)
+    # value of os.EX_OK is 0
+    os._exit(os.EX_OK)
 
 # Note: For unix like system: os.system("clear")
 #       windows OS: os.system("cls")
