@@ -8,6 +8,7 @@
 # Note: Automating task.
 
 # Modules used in this program.
+from distutils import extension
 import shutil
 import os
 
@@ -16,7 +17,9 @@ import os
 def main() -> None:
     clear_screen()
     print("\n\n\n\tLet's move and rename pix *- Returns -* to raw materials files...\n\n")
-    src_path, target_path, dir_name = working_dirs()
+
+    dir_name = dir_file_name()
+    src_path, target_path = working_dirs()
     
     make_dir(target_path,dir_name)
 
@@ -34,21 +37,20 @@ def working_dirs() -> str:
     home_path = os.environ.get('HOME')
     src_path =  os.path.join(home_path, 'Downloads')
     target_path = os.path.join(home_path, 'Documents/Returns')
-    dir_name = dir_file_name()
 
-    return src_path, target_path, dir_name
+    return src_path, target_path
 
-# Iterate through source dir list, get, and move files with new names
-# to new destination.    
+# It iterates through source directory list gets, and moves files 
+# from source directory with new names to new destination.    
 def move_and_rename(files, target_path, dir_name):
-    ext = '.DNG' # Setting file extension
+    extension = '.DNG' # Setting file extension
     extensions = ('.HEIC','.PNG','.DNG','.JPG', '.jpg', 'png')
     delimiter = '-' # delimiter
     prefix = 1 # as starter counter. 
     for file in files:
         if file.endswith(extensions, 7):
             shutil.move(file, os.path.join(target_path, dir_name, str(prefix) +  
-                   delimiter + dir_name + ext))
+                   delimiter + dir_name + extension))
             print(file)
             prefix += 1
 
@@ -63,16 +65,15 @@ def dir_file_name() -> str:
     while active:
         file_name = input("Enter WO # or 'q' to QUIT: ")
         if file_name.lower() == 'q':
-            active = False
+        # Exit with status value os.EX_OK
+        # Utilizing os._exit passing parameter (os.EX_OK)
+        # value of os.EX_OK is 0
+            os._exit(os.EX_OK)
         elif file_name == blank:
             print("\n\tWrong entry -*-BLANKS-*- are not allowed...\n")
             continue
-        elif file_name:
+        else:
             return file_name
-    # Exit with status value os.EX_OK
-    # Utilizing os._exit passing parameter (os.EX_OK)
-    # value of os.EX_OK is 0
-    os._exit(os.EX_OK)
 
 # Note: For unix like system: os.system("clear")
 #       windows OS: os.system("cls")
