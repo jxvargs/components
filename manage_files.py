@@ -15,7 +15,7 @@ import os
 # this program.
 def main() -> None:
     clear_screen()
-    print("\n\n\n\tLet's move and rename pix *- Returns -* to raw materials files...\n\n")
+    print("\n\n\n\tLet's move and rename pix *- Returns -* to raw materials directory...\n\n\n")
 
     dir_file_name()
 
@@ -29,7 +29,8 @@ def move_and_rename(target_path, dir_name, src_dir):
     extensions = ('.HEIC','.PNG','.DNG','.JPG', '.jpg', 'png')
     delimiter = '-' # delimiter
     prefix = 1 # as starter counter.
-    print(f"\nChanging directory to /Downloads {os.chdir(src_dir)}")
+    print(f"\n\tChanging directory to /Downloads...\n")
+    os.chdir(src_dir)
     files = os.listdir(src_dir)
     for file in files:
         if file.endswith(extensions, 7):
@@ -37,6 +38,7 @@ def move_and_rename(target_path, dir_name, src_dir):
                    delimiter + dir_name + extension))
             print(file)
             prefix += 1
+    print('\n')
 
 # Creating destination directory.
 # The following function setup working directories
@@ -61,7 +63,7 @@ def dir_file_name() -> str:
             print("\n\tWrong entry -*-BLANKS-*- are not allowed...\n")
             continue
         else:
-           print("\tNice")
+           print("\tDone...\n")
            make_dir(file_name)
 
 # Note: For unix like system: os.system("clear")
