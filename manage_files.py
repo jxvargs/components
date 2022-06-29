@@ -8,7 +8,6 @@
 # Note: Automating task.
 
 # Modules used in this program.
-from distutils import extension
 import shutil
 import os
 
@@ -18,35 +17,20 @@ def main() -> None:
     clear_screen()
     print("\n\n\n\tLet's move and rename pix *- Returns -* to raw materials files...\n\n")
 
-    dir_name = dir_file_name()
-    src_path, target_path = working_dirs()
-    
-    make_dir(target_path,dir_name)
-
-    os.chdir(src_path)
-    print(os.getcwd())
-    files = os.listdir(src_path)
-
-    move_and_rename(files, target_path, dir_name)
-
-# This function sets up working directories.
-# Note: Alternate options:
-#      1- home_path = os.path.expanduser('~')
-#      2- home_path = os.envorion.get('HOME') 
-def working_dirs() -> str:
-    home_path = os.environ.get('HOME')
-    src_path =  os.path.join(home_path, 'Downloads')
-    target_path = os.path.join(home_path, 'Documents/Returns')
-
-    return src_path, target_path
+    dir_file_name()
 
 # It iterates through source directory list gets, and moves files 
-# from source directory with new names to new destination.    
-def move_and_rename(files, target_path, dir_name):
+# from source directory with new names to new destination.
+# Note: Alternate options:
+#      1- home_path = os.path.expanduser('~')
+#      2- home_path = os.envorion.get('HOME')    
+def move_and_rename(target_path, dir_name, src_dir):
     extension = '.DNG' # Setting file extension
     extensions = ('.HEIC','.PNG','.DNG','.JPG', '.jpg', 'png')
     delimiter = '-' # delimiter
-    prefix = 1 # as starter counter. 
+    prefix = 1 # as starter counter.
+    print(f"\nChanging directory to /Downloads {os.chdir(src_dir)}")
+    files = os.listdir(src_dir)
     for file in files:
         if file.endswith(extensions, 7):
             shutil.move(file, os.path.join(target_path, dir_name, str(prefix) +  
@@ -55,14 +39,18 @@ def move_and_rename(files, target_path, dir_name):
             prefix += 1
 
 # Creating destination directory.
-def make_dir(target_path, dir_name) -> None:
-    os.mkdir(os.path.join(target_path, dir_name))
+# The following function setup working directories
+def make_dir(file_name):
+    home_path = os.environ.get('HOME')
+    target_path = os.path.join(home_path, 'Documents/Returns')
+    src_dir = os.path.join(home_path, 'Downloads')
+    os.mkdir(os.path.join(target_path, file_name))
+    move_and_rename(target_path,file_name,src_dir)
 
 # Promting user for directory name and return the name.
 def dir_file_name() -> str:
-    active = True
     blank = ''
-    while active:
+    while True:
         file_name = input("Enter WO # or 'q' to QUIT: ")
         if file_name.lower() == 'q':
         # Exit with status value os.EX_OK
@@ -73,7 +61,8 @@ def dir_file_name() -> str:
             print("\n\tWrong entry -*-BLANKS-*- are not allowed...\n")
             continue
         else:
-            return file_name
+           print("\tNice")
+           make_dir(file_name)
 
 # Note: For unix like system: os.system("clear")
 #       windows OS: os.system("cls")

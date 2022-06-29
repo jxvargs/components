@@ -25,7 +25,7 @@ def menu() -> str:
     ans = input("Select option (1 - 3), (B, C, x): ")
     if ans in  answers:
         return ans
-    elif ans == '3' or ans == 'x':
+    elif ans == '3' or ans == 'x'.lower():
         os._exit(0) #it exits with status code 0, indicating success:
     else:
         input("Do you want to Exit? Press any key to continue...")
