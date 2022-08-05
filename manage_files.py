@@ -10,6 +10,7 @@
 # Modules used in this program.
 import shutil
 import os
+from time import sleep
 
 # main fuction controls working flow of
 # this program.
@@ -30,6 +31,7 @@ def move_and_rename(target_path, dir_name, src_dir):
     delimiter = '-' # delimiter
     prefix = 1 # as starter counter.
     print(f"\nChanging directory to /Downloads {os.chdir(src_dir)}")
+    sleep(3.0)
     files = os.listdir(src_dir)
     for file in files:
         if file.endswith(extensions, 7):
@@ -63,6 +65,7 @@ def dir_file_name() -> str:
         else:
            print("\tNice")
            make_dir(file_name)
+           sleep(5.0)
 
 # Note: For unix like system: os.system("clear")
 #       windows OS: os.system("cls")
