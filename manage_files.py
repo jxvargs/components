@@ -26,7 +26,7 @@ def main() -> None:
 #      2- home_path = os.envorion.get('HOME')    
 def move_and_rename(target_path, dir_name, src_dir):
     extension = '.DNG' # Setting file extension
-    extensions = ('.HEIC','.PNG','.DNG','.JPG', '.jpg', 'png')
+    extensions = ('.HEIC','.PNG','.DNG','.JPG', '.jpg', 'jpeg', 'JPEG', 'png')
     delimiter = '-' # delimiter
     prefix = 1 # as starter counter.
     print(f"\n\tChanging directory to /Downloads...\n")
@@ -46,6 +46,9 @@ def make_dir(file_name):
     home_path = os.environ.get('HOME')
     target_path = os.path.join(home_path, 'Documents/Returns')
     src_dir = os.path.join(home_path, 'Downloads')
+
+    # Check if directory target exist <--
+    
     os.mkdir(os.path.join(target_path, file_name))
     move_and_rename(target_path,file_name,src_dir)
 
