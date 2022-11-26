@@ -10,13 +10,12 @@
 # Modules used in this program.
 import shutil
 import os
-from time import sleep
 
 # main fuction controls working flow of
 # this program.
 def main() -> None:
     clear_screen()
-    print("\n\n\n\tLet's move and rename pix *- Returns -* to raw materials files...\n\n")
+    print("\n\n\n\tLet's move and rename pix *- Returns -* to raw materials directory...\n\n\n")
 
     dir_file_name()
 
@@ -27,11 +26,11 @@ def main() -> None:
 #      2- home_path = os.envorion.get('HOME')    
 def move_and_rename(target_path, dir_name, src_dir):
     extension = '.DNG' # Setting file extension
-    extensions = ('.HEIC','.PNG','.DNG','.JPG', '.jpg', 'png')
+    extensions = ('.HEIC','.PNG','.DNG','.JPG', '.jpg', 'jpeg', 'JPEG', 'png')
     delimiter = '-' # delimiter
     prefix = 1 # as starter counter.
-    print(f"\nChanging directory to /Downloads {os.chdir(src_dir)}")
-    sleep(3.0)
+    print(f"\n\tChanging directory to /Downloads...\n")
+    os.chdir(src_dir)
     files = os.listdir(src_dir)
     for file in files:
         if file.endswith(extensions, 7):
@@ -39,6 +38,7 @@ def move_and_rename(target_path, dir_name, src_dir):
                    delimiter + dir_name + extension))
             print(file)
             prefix += 1
+    print('\n')
 
 # Creating destination directory.
 # The following function setup working directories
@@ -46,8 +46,14 @@ def make_dir(file_name):
     home_path = os.environ.get('HOME')
     target_path = os.path.join(home_path, 'Documents/Returns')
     src_dir = os.path.join(home_path, 'Downloads')
+
+    # Check if directory target exist <--
+    
     os.mkdir(os.path.join(target_path, file_name))
     move_and_rename(target_path,file_name,src_dir)
+
+# Checking existing of a directory
+def dir_exist()
 
 # Promting user for directory name and return the name.
 def dir_file_name() -> str:
@@ -63,9 +69,8 @@ def dir_file_name() -> str:
             print("\n\tWrong entry -*-BLANKS-*- are not allowed...\n")
             continue
         else:
-           print("\tNice")
+           print("\tDone...\n")
            make_dir(file_name)
-           sleep(5.0)
 
 # Note: For unix like system: os.system("clear")
 #       windows OS: os.system("cls")
