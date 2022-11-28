@@ -48,12 +48,21 @@ def make_dir(file_name):
     src_dir = os.path.join(home_path, 'Downloads')
 
     # Check if directory target exist <--
-    
-    os.mkdir(os.path.join(target_path, file_name))
-    move_and_rename(target_path,file_name,src_dir)
+    if dir_exist(target_path):
+        src_dir = os.chdir(os.path.join(target_path,file_name))
+        files = os.listdir(src_dir)
+        prefix = 0
+        delimiter = '-'
+        for file in files:
+            prefix +=1
+        
+    else:
+        os.mkdir(os.path.join(target_path, file_name))
+        move_and_rename(target_path,file_name,src_dir)
 
 # Checking existing of a directory
-def dir_exist()
+def dir_exist(target_path):
+    print(os.path.exists(target_path))
 
 # Promting user for directory name and return the name.
 def dir_file_name() -> str:
