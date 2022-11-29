@@ -46,23 +46,28 @@ def make_dir(file_name):
     home_path = os.environ.get('HOME')
     target_path = os.path.join(home_path, 'Documents/Returns')
     src_dir = os.path.join(home_path, 'Downloads')
+    dir_obj = os.path.join(target_path, file_name)
 
     # Check if directory target exist <--
-    if dir_exist(target_path):
-        src_dir = os.chdir(os.path.join(target_path,file_name))
-        files = os.listdir(src_dir)
-        prefix = 0
-        delimiter = '-'
-        for file in files:
-            prefix +=1
-        
+    if os.path.exists(dir_obj) and os.path.isdir(dir_obj):
+        moving_files(dir_obj, src_dir)
     else:
         os.mkdir(os.path.join(target_path, file_name))
         move_and_rename(target_path,file_name,src_dir)
 
 # Checking existing of a directory
-def dir_exist(target_path):
-    print(os.path.exists(target_path))
+def moving_files(dir_obj, src_dir):
+    extension = '.DNG' # Setting file extension
+    extensions = ('.HEIC','.PNG','.DNG','.JPG', '.jpg', 'jpeg', 'JPEG', 'png')
+    delimiter = '-' # delimiter
+    prefix = 1 # as starter counter.
+    files = os.listdir(os.chdir(src_dir))
+    for file in files:
+        if file.endswith(extensions, 7):
+            shutil.move(file, os.path.join(dir_obj, str(prefix) +  
+                   delimiter + dir_name + extension))
+            print(file)
+            prefix += 1
 
 # Promting user for directory name and return the name.
 def dir_file_name() -> str:
