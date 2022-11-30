@@ -44,7 +44,7 @@ def move_and_rename(target_path, dir_name, src_dir):
 # The following function setup working directories
 def make_dir(file_name):
     home_path = os.environ.get('HOME')
-    target_path = os.path.join(home_path, 'Documents/Returns')
+    target_path = os.path.join(home_path, 'Documents/Returns', file_name)
     src_dir = os.path.join(home_path, 'Downloads')
     dir_obj = os.path.join(target_path, file_name)
 
@@ -73,7 +73,7 @@ def moving_files(dir_obj, src_dir):
 def dir_file_name() -> str:
     blank = ''
     while True:
-        file_name = input("Enter WO # or 'q' to QUIT: ")
+        file_name = input("Enter WO # or 'q' to QUIT:  ")
         if file_name.lower() == 'q':
         # Exit with status value os.EX_OK
         # Utilizing os._exit passing parameter (os.EX_OK)
@@ -85,6 +85,13 @@ def dir_file_name() -> str:
         else:
            print("\tDone...\n")
            make_dir(file_name)
+
+def move_to_dir(target_dir, moving_files, file_name):
+    os.chdir(target_dir)
+    files = os.listdir()
+    length = len(files)
+    for item in moving_files:
+        os.rename(item, target_dir + str(length+1))
 
 # Note: For unix like system: os.system("clear")
 #       windows OS: os.system("cls")
