@@ -19,7 +19,6 @@ def main() -> None:
 
     dir_file_name()
 
-<<<<<<< HEAD
 # It iterates through source directory list gets, and moves files 
 # from source directory with new names to new destination.
 # Note: Alternate options:
@@ -53,8 +52,6 @@ def make_dir(file_name):
     os.mkdir(os.path.join(target_path, file_name))
     move_and_rename(target_path,file_name,src_dir)
 
-=======
->>>>>>> test
 # Promting user for directory name and return the name.
 def dir_file_name() -> str:
     blank = ''
